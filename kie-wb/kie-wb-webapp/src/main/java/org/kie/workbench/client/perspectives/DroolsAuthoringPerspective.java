@@ -75,7 +75,7 @@ public class DroolsAuthoringPerspective {
     @PostConstruct
     public void init() {
         buildPerspective();
-        buildMenuBar();
+        //buildMenuBar();
         buildToolBar();
     }
 
@@ -100,7 +100,7 @@ public class DroolsAuthoringPerspective {
         new PartDefinitionImpl( new DefaultPlaceRequest( "org.kie.guvnor.explorer" ) );
     }
     
-    private void buildMenuBar() {
+    /*private void buildMenuBar() {
         this.menus = MenuFactory
                 .newTopLevelMenu( constants.explore())
                 .menus()
@@ -143,7 +143,7 @@ public class DroolsAuthoringPerspective {
                 .newTopLevelMenu( AppConstants.INSTANCE.Repository() )
                 .withItems( repositoryMenu.getMenuItems() )
                 .endMenu().build();
-    }
+    }*/
 
     private void buildToolBar() {
         this.toolBar = new DefaultToolBar( "guvnor.new.item" );
