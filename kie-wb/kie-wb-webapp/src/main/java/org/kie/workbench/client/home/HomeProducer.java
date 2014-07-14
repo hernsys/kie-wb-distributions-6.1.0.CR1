@@ -197,7 +197,6 @@ public class HomeProducer {
         model.addSection( s4 );
         model.addSection( s5 );
         
-        //TODO it was add for hernsys
         placeManager.goTo( "org.kie.workbench.client.perspectives.DroolsAuthoringPerspective" );
         
         

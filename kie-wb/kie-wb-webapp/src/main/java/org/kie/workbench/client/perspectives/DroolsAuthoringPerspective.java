@@ -102,7 +102,7 @@ public class DroolsAuthoringPerspective {
     
     private void buildMenuBar() {
         this.menus = MenuFactory
-                .newTopLevelMenu( constants.explore() + "Hernsys"  )
+                .newTopLevelMenu( constants.explore())
                 .menus()
                 .menu( constants.inboxIncomingChanges() )
                 .respondsWith( new Command() {
