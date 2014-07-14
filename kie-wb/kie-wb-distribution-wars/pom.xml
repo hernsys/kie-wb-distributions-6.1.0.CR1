@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.kie</groupId>
+    <artifactId>kie-wb</artifactId>
+    <version>6.1.0.CR1</version>
+  </parent>
+
+  <artifactId>kie-wb-distribution-wars</artifactId>
+  <packaging>pom</packaging>
+
+  <name>KIE Workbench - Distribution Wars</name>
+  <description>This module builds the download wars for different application servers.</description>
+
+  <build>
+    <plugins>
+      <!-- special handling for WAS8.5 as sisu-inject-bean:2.2.3 contains javax.inject classes which conflicts with WAS-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <outputFile>${project.build.directory}/lib/nojavax-sisu-inject-bean.jar</outputFile>
+          <artifactSet>
+            <includes>
+              <include>org.sonatype.sisu:sisu-inject-bean</include>
+            </includes>
+          </artifactSet>
+          <filters>
+            <filter>
+              <artifact>org.sonatype.sisu:sisu-inject-bean</artifact>
+              <excludes>
+                <exclude>javax/**</exclude>
+              </excludes>
+            </filter>
+          </filters>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- end of WAS 8.5 specific handling -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <finalName>kie-wb-${project.version}</finalName>
+          <descriptors>
+            <descriptor>src/main/assembly/assembly-kie-wb-tomcat-7_0.xml</descriptor>
+            <descriptor>src/main/assembly/assembly-kie-wb-jboss-as-7_0.xml</descriptor>
+            <descriptor>src/main/assembly/assembly-kie-wb-jboss-eap-6_1.xml</descriptor>
+            <descriptor>src/main/assembly/assembly-kie-wb-jboss-wildfly-8.xml</descriptor>
+            <descriptor>src/main/assembly/assembly-kie-wb-websphere-as-8_5.xml</descriptor>
+          </descriptors>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+            <!-- special manifest entries to disable JAX-WS engine on WebSphere and to allow usage of CXF -->
+            <manifestEntries>
+              <DisableIBMJAXWSEngine>true</DisableIBMJAXWSEngine>
+              <Ignore-Scanning-Archives>cxf-api-${version.org.apache.cxf}.jar,cxf-rt-bindings-soap-${version.org.apache.cxf}.jar,cxf-rt-bindings-xml-${version.org.apache.cxf}.jar,cxf-rt-core-${version.org.apache.cxf}.jar,cxf-rt-databinding-jaxb-${version.org.apache.cxf}.jar,cxf-rt-frontend-jaxws-${version.org.apache.cxf}.jar,cxf-rt-frontend-simple-${version.org.apache.cxf}.jar,cxf-rt-transports-http-${version.org.apache.cxf}.jar,cxf-rt-ws-addr-${version.org.apache.cxf}.jar,cxf-rt-ws-policy-${version.org.apache.cxf}.jar</Ignore-Scanning-Archives>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Internal dependencies -->
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-wb-webapp</artifactId>
+      <type>war</type>
+    </dependency>
+
+    <!-- External dependencies -->
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>jaxrs-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-jaxrs</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-cdi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <!-- <version>2.7.7</version> -->
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.common</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+    </dependency>
+ <!-- For WAS8 shading -->
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-bean</artifactId>
+    </dependency>
+    <!-- WAS8 requires JUL -->
+    <dependency>
+     <groupId>org.slf4j</groupId>
+     <artifactId>slf4j-jdk14</artifactId>
+    </dependency>
+  </dependencies>
+
+</project>
