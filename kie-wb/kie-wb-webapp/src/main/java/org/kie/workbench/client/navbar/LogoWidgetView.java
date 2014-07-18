@@ -48,7 +48,7 @@ public class LogoWidgetView
 
     @PostConstruct
     public void init() {
-        logo = new Image( AppResource.INSTANCE.images().logo() );
+        logo = new Image( AppResource.INSTANCE.images().logoP3Small() );
         initWidget( uiBinder.createAndBindUi( this ) );
     }
 

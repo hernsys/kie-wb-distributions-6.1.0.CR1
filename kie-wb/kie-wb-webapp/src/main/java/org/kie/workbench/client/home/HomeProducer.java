@@ -39,6 +39,7 @@ public class HomeProducer {
 
     public void init() {
         final String url = GWT.getModuleBaseURL();
+        
         model = new HomeModel( constants.homeTheKnowledgeLifeCycle() );
         model.addCarouselEntry( ModelUtils.makeCarouselEntry( constants.homeDiscover(),
                                                               constants.homeDiscoverCaption(),

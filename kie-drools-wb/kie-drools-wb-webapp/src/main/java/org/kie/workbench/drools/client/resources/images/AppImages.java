@@ -24,6 +24,7 @@ public interface AppImages
         ClientBundle {
 
     @Source("logo.png")
-    ImageResource logo();
+    ImageResource logo();   
+    
 
 }

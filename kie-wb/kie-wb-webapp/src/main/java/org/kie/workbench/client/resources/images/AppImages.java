@@ -18,6 +18,7 @@ package org.kie.workbench.client.resources.images;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ClientBundle.Source;
 
 public interface AppImages
         extends
@@ -25,5 +26,12 @@ public interface AppImages
 
     @Source("logo.png")
     ImageResource logo();
+    
+    @Source("p3-web-logo1.png")
+    ImageResource logoP3Small();
+    
+    @Source("p3-wb-logo2.png")
+    ImageResource logoP3();
+
 
 }
