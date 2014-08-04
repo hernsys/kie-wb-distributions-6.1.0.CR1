@@ -71,14 +71,15 @@
     }
 
     #login-top {
+      margin: 0 0 0 -60px;
       height: 120px;
-      width: 401px;
-      padding-top: 20px;
+      width: 601px;
+      padding-top: 148px;
       text-align: center;
     }
 
     #login-content {
-      margin-top: 120px;
+      margin-top: 0px;
     }
 
     label {
@@ -142,31 +143,31 @@
 
 <div id="login-wrapper" class="png_bg">
   <div id="login-top">
-    <img src="<%=request.getContextPath()%>/images/kie-ide.png" alt="KIE IDE Logo" title="Powered By Drools/jBPM"/>
+    <img src="<%=request.getContextPath()%>/images/kie-ide.png" alt="PlugTree - DFM - Logo" title="PlugTree - DFM - Logo"/>
   </div>
 
   <div id="login-content">
     <c:if test="${param.message != null}">
       <h3><i18n:message key="loginFailed">Login failed: Not Authorized</i18n:message></h3>
     </c:if>
-    <form action="uf_security_check" method="POST">
-      <p>
-        <label style="white-space: nowrap;"><i18n:message key="UserName">Username</i18n:message></label>
-        <input value="" name="uf_username" class="text-input" type="text"/>
-      </p>
-      <br style="clear: both;"/>
+    <form action="j_security_check" method="POST">
+            <p>
+                <label style="white-space: nowrap;"><i18n:message key="UserName">Username</i18n:message></label>
+                <input value="" name="j_username" class="text-input" type="text"/>
+            </p>
+            <br style="clear: both;"/>
 
-      <p>
-        <label style="white-space: nowrap;"><i18n:message key="Password">Password</i18n:message></label>
-        <input name="uf_password" class="text-input" type="password"/>
-      </p>
-      <br style="clear: both;"/>
+            <p>
+                <label style="white-space: nowrap;"><i18n:message key="Password">Password</i18n:message></label>
+                <input name="j_password" class="text-input" type="password"/>
+            </p>
+            <br style="clear: both;"/>
 
-      <p>
-          <input class="button" type="submit" value='<i18n:message key="SignIn">Sign In</i18n:message>'/>
-      </p>
+            <p>
+                <input class="button" type="submit" value='<i18n:message key="SignIn">Sign In</i18n:message>'/>
+            </p>
 
-    </form>
+        </form>
   </div>
 </div>
 <div id="dummy"></div>

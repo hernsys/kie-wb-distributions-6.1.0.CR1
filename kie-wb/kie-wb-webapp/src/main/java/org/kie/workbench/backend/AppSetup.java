@@ -54,8 +54,8 @@ public class AppSetup {
     private static final String OU_NAME = "demo";
     private static final String OU_OWNER = "demo@demo.org";
 
-    private static final String PLAYGROUND_ALIAS = "plugTree-playground";
-    private static final String PLAYGROUND_ORIGIN = "https://github.com/hernsys/demo-playground.git";
+    private static final String PLAYGROUND_ALIAS = "plugtree-playground";
+    private static final String PLAYGROUND_ORIGIN = "https://github.com/plugtree/plugtree-playground.git";
     private static final String PLAYGROUND_UID = "mock";
     private static final String PLAYGROUND_PWD = "mock";
 

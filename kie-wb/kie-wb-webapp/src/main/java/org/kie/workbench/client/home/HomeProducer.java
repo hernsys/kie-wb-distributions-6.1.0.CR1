@@ -1,23 +1,25 @@
 package org.kie.workbench.client.home;
 
-import java.util.Arrays;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.LocaleInfo;
-import com.google.gwt.user.client.Window;
 import org.jbpm.dashboard.renderer.service.DashboardURLBuilder;
 import org.kie.workbench.client.resources.i18n.AppConstants;
+import org.kie.workbench.common.screens.explorer.model.AssetEvent;
 import org.kie.workbench.common.screens.home.model.HomeModel;
 import org.kie.workbench.common.screens.home.model.ModelUtils;
 import org.kie.workbench.common.screens.home.model.Section;
 import org.kie.workbench.common.screens.home.model.SectionEntry;
-import org.kie.workbench.common.services.security.AppRoles;
 import org.kie.workbench.common.services.security.KieWorkbenchACL;
 import org.uberfire.client.mvp.PlaceManager;
 import org.uberfire.mvp.Command;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.user.client.Window;
 
 import static org.kie.workbench.client.security.KieWorkbenchFeatures.*;
 
@@ -36,6 +38,18 @@ public class HomeProducer {
 
     @Inject
     private KieWorkbenchACL kieACL;
+    
+    @Inject
+    private Event<AssetEvent> assetEvent;
+    
+    public static final ImmutableSet<String> ASSETS_EXTENSION = ImmutableSet.of(
+            ".xls",
+            ".drl",
+            ".bpmn2",
+            ".gdst",
+            ".dsl");
+
+    
 
     public void init() {
         final String url = GWT.getModuleBaseURL();
@@ -197,10 +211,20 @@ public class HomeProducer {
         model.addSection( s3 );
         model.addSection( s4 );
         model.addSection( s5 );
-        
-        placeManager.goTo( "org.kie.workbench.client.perspectives.DroolsAuthoringPerspective" );
-        
-        
+        if(!isCorrectAsset()){
+            placeManager.goTo( "org.kie.workbench.client.perspectives.DroolsAuthoringPerspective" );
+        }
+    }
+    
+    private boolean isCorrectAsset(){
+        boolean isValid = false;
+        for(String extension : ASSETS_EXTENSION){
+            if(Window.Location.getHref().toString().indexOf(extension) != -1){
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
     }
 
     @Produces
