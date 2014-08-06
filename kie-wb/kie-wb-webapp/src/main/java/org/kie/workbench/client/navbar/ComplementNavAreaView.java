@@ -60,11 +60,7 @@ public class ComplementNavAreaView
 
     private static ViewBinder uiBinder = GWT.create( ViewBinder.class );
 
-    @UiField
-    public Button searchButton;
-
-    @UiField
-    public TextBox searchTextBox;
+   
 
     @Inject
     private ContextualSearch contextualSearch;
@@ -97,17 +93,6 @@ public class ComplementNavAreaView
 //        panel.setPixelSize( width, height );
     }
 
-    @UiHandler("searchButton")
-    public void search( ClickEvent e ) {
-        contextualSearch.getSearchBehavior().execute( searchTextBox.getText() );
-    }
-
-    public void onClearSearchBox( @Observes ClearSearchEvent clearSearch ) {
-        searchTextBox.setText( "" );
-    }
-
-    public void onSetSearchText( @Observes SetSearchTextEvent setSearchText ) {
-        searchTextBox.setText( setSearchText.getSearchText() );
-    }
+    
 
 }

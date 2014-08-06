@@ -40,10 +40,14 @@ import org.uberfire.workbench.model.toolbar.IconType;
 import org.uberfire.workbench.model.toolbar.ToolBar;
 import org.uberfire.workbench.model.toolbar.impl.DefaultToolBar;
 import org.uberfire.workbench.model.toolbar.impl.DefaultToolBarItem;
+import org.uberfire.workbench.model.menu.MenuFactory;
+import org.uberfire.mvp.PlaceRequest;
+import org.guvnor.inbox.client.InboxPresenter;
+
 
 @ApplicationScoped
 @WorkbenchPerspective(identifier = "org.kie.workbench.client.perspectives.DroolsAuthoringPerspective")
-public class DroolsAuthoringPerspective {
+public class DroolsAuthoringPerspective  {
 
     private AppConstants constants = AppConstants.INSTANCE;
 
@@ -69,6 +73,7 @@ public class DroolsAuthoringPerspective {
     @PostConstruct
     public void init() {
         buildPerspective();
+        buildMenuBar();
         buildToolBar();
     }
 
@@ -88,13 +93,54 @@ public class DroolsAuthoringPerspective {
     }
 
     private void buildPerspective() {
-        /*this.perspective = new PerspectiveDefinitionImpl( PanelType.ROOT_LIST );
+        this.perspective = new PerspectiveDefinitionImpl( PanelType.ROOT_LIST );
         this.perspective.setName( constants.Project_Authoring() );
-        perspective.getRoot().addPart(new PartDefinitionImpl( new DefaultPlaceRequest("org.kie.guvnor.explorer")));*/
-    	
-    	this.perspective = new PerspectiveDefinitionImpl( PanelType.ROOT_LIST );
-        this.perspective.setName( constants.Project_Authoring() );
-        new PartDefinitionImpl( new DefaultPlaceRequest( "org.kie.guvnor.explorer" ) );
+        perspective.getRoot().addPart(new PartDefinitionImpl( new DefaultPlaceRequest("org.kie.guvnor.explorer")));
+    }
+    
+    private void buildMenuBar() {
+        this.menus = MenuFactory
+                .newTopLevelMenu( constants.explore() )
+                .menus()
+                .menu( constants.inboxIncomingChanges() )
+                .respondsWith( new Command() {
+                    @Override
+                    public void execute() {
+                        placeManager.goTo( "Inbox" );
+                    }
+                } )
+                .endMenu()
+                .menu( constants.inboxRecentlyEdited() )
+                .respondsWith( new Command() {
+                    @Override
+                    public void execute() {
+                        PlaceRequest p = new DefaultPlaceRequest( "Inbox" );
+                        p.addParameter( "inboxname", InboxPresenter.RECENT_EDITED_ID );
+                        placeManager.goTo( p );
+                    }
+                } )
+                .endMenu()
+                .menu( constants.inboxRecentlyOpened() )
+                .respondsWith( new Command() {
+                    @Override
+                    public void execute() {
+                        PlaceRequest p = new DefaultPlaceRequest( "Inbox" );
+                        p.addParameter( "inboxname", InboxPresenter.RECENT_VIEWED_ID );
+                        placeManager.goTo( p );
+                    }
+                } )
+                .endMenu()
+                .endMenus()
+                .endMenu()
+                .newTopLevelMenu( constants.newItem() )
+                .withItems( newResourcesMenu.getMenuItems() )
+                .endMenu()
+                .newTopLevelMenu( constants.tools() )
+                .withItems( projectMenu.getMenuItems() )
+                .endMenu()
+                .newTopLevelMenu( AppConstants.INSTANCE.Repository() )
+                .withItems( repositoryMenu.getMenuItems() )
+                .endMenu().build();
     }
     
     private void buildToolBar() {
@@ -111,4 +157,11 @@ public class DroolsAuthoringPerspective {
                                                  command ) );
 
     }
+
+
+    
+    
+    
+    
+    
 }
