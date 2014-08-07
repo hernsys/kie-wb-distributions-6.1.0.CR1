@@ -54,10 +54,15 @@ public class AppSetup {
     private static final String OU_NAME = "demo";
     private static final String OU_OWNER = "demo@demo.org";
 
-    private static final String PLAYGROUND_ALIAS = "plugtree-playground";
-    private static final String PLAYGROUND_ORIGIN = "https://github.com/plugtree/plugtree-playground.git";
-    private static final String PLAYGROUND_UID = "mock";
-    private static final String PLAYGROUND_PWD = "mock";
+    private static final String PLAYGROUND_P3_ALIAS = "plugtree-playground";
+    private static final String PLAYGROUND_P3_ORIGIN = "https://github.com/plugtree/plugtree-playground.git";
+    private static final String PLAYGROUND_P3_UID = "mock";
+    private static final String PLAYGROUND_P3_PWD = "mock";
+    
+    private static final String PLAYGROUND_HERNSYS_ALIAS = "demo-playground";
+    private static final String PLAYGROUND_HERNSYS_ORIGIN = "https://github.com/hernsys/demo-playground.git";
+    private static final String PLAYGROUND_HERNSYS_UID = "mock";
+    private static final String PLAYGROUND_HERNSYS_PWD = "mock";
 
     private static final String GLOBAL_SETTINGS = "settings";
     // default repository section - end
@@ -89,10 +94,16 @@ public class AppSetup {
 
         } else if ( !"false".equalsIgnoreCase( System.getProperty( "org.kie.demo" ) ) ) {
             administrationService.bootstrapRepository( OU_NAME,
-            		PLAYGROUND_ALIAS,
-            		PLAYGROUND_ORIGIN,
-            		PLAYGROUND_UID,
-            		PLAYGROUND_PWD );
+            		PLAYGROUND_P3_ALIAS,
+            		PLAYGROUND_P3_ORIGIN,
+            		PLAYGROUND_P3_UID,
+            		PLAYGROUND_P3_PWD );
+            
+            administrationService.bootstrapRepository( OU_NAME,
+            		PLAYGROUND_HERNSYS_ALIAS,
+            		PLAYGROUND_HERNSYS_ORIGIN,
+            		PLAYGROUND_HERNSYS_UID,
+            		PLAYGROUND_HERNSYS_PWD );
 
         } else if ( "true".equalsIgnoreCase( System.getProperty( "org.kie.example" ) ) ) {
             administrationService.bootstrapRepository( "example",
