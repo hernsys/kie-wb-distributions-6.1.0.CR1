@@ -49,7 +49,7 @@ public class DroolsAuthoringPerspective  {
     public PerspectiveDefinition getPerspective() {
     	this.perspective = new PerspectiveDefinitionImpl( PanelType.ROOT_LIST );
         this.perspective.setName( KIE_WORKBENCH_EXTENSION );
-        perspective.getRoot().addPart(new PartDefinitionImpl( new DefaultPlaceRequest("pepe")));
+        perspective.getRoot().addPart(new PartDefinitionImpl( new DefaultPlaceRequest("org.kie.guvnor.explorer")));
         return this.perspective;
         
     }
