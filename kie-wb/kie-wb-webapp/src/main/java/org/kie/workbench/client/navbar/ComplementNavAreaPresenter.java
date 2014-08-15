@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import org.uberfire.client.workbench.Header;
 
 @ApplicationScoped
-public class ComplementNavAreaPresenter implements Header {
+public class ComplementNavAreaPresenter /*implements Header*/ {
 
     public interface View extends IsWidget {
 
@@ -33,7 +33,7 @@ public class ComplementNavAreaPresenter implements Header {
     @Inject
     public View view;
 
-    @Override
+    /*@Override
     public String getId() {
         return "ComplementNavArea";
     }
@@ -46,6 +46,6 @@ public class ComplementNavAreaPresenter implements Header {
     @Override
     public Widget asWidget() {
         return view.asWidget();
-    }
+    }*/
 
 }

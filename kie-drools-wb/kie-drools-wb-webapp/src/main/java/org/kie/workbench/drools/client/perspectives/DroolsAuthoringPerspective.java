@@ -47,6 +47,8 @@ import org.uberfire.workbench.model.toolbar.ToolBar;
 import org.uberfire.workbench.model.toolbar.impl.DefaultToolBar;
 import org.uberfire.workbench.model.toolbar.impl.DefaultToolBarItem;
 
+import com.google.gwt.user.client.Window;
+
 /**
  * A Perspective for Rule authors
  */
@@ -77,9 +79,9 @@ public class DroolsAuthoringPerspective {
 
     @PostConstruct
     public void init() {
-        buildPerspective();
-        buildMenuBar();
-        buildToolBar();
+        //buildPerspective();
+        /*buildMenuBar();
+        buildToolBar();*/
     }
 
     @Perspective
@@ -98,6 +100,7 @@ public class DroolsAuthoringPerspective {
     }
 
     private void buildPerspective() {
+    	Window.alert("drl wb -- buildPerspective");
         this.perspective = new PerspectiveDefinitionImpl( PanelType.ROOT_LIST );
         this.perspective.setName( constants.project_authoring() );
 

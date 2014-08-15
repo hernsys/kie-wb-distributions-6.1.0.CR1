@@ -19,7 +19,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.inject.Inject;
+
+import org.guvnor.common.services.shared.config.AppConfigService;
+import org.guvnor.common.services.shared.config.ApplicationPreferences;
+import org.jboss.errai.common.client.api.Caller;
+import org.jboss.errai.common.client.api.RemoteCallback;
+import org.jboss.errai.ioc.client.api.AfterInitialization;
+import org.jboss.errai.ioc.client.api.EntryPoint;
+import org.kie.workbench.client.home.HomeProducer;
+import org.kie.workbench.client.resources.i18n.AppConstants;
+import org.kie.workbench.common.services.security.KieWorkbenchACL;
+import org.kie.workbench.common.services.security.KieWorkbenchPolicy;
+import org.kie.workbench.common.services.shared.security.KieWorkbenchSecurityService;
+import org.kie.workbench.common.widgets.client.resources.RoundedCornersResource;
+import org.uberfire.client.UberFirePreferences;
+import org.uberfire.client.mvp.PlaceManager;
+import org.uberfire.mvp.Command;
+import org.uberfire.security.Identity;
+import org.uberfire.security.Role;
+import org.uberfire.workbench.model.menu.MenuFactory;
+import org.uberfire.workbench.model.menu.MenuItem;
 
 import com.google.gwt.animation.client.Animation;
 import com.google.gwt.core.client.GWT;
@@ -29,27 +50,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox.DefaultSuggestionDisplay;
 import com.google.gwt.user.client.ui.TextBox;
-import org.guvnor.common.services.shared.config.AppConfigService;
-import org.guvnor.common.services.shared.config.ApplicationPreferences;
-import org.jboss.errai.common.client.api.Caller;
-import org.jboss.errai.common.client.api.RemoteCallback;
-import org.jboss.errai.ioc.client.api.AfterInitialization;
-import org.jboss.errai.ioc.client.api.EntryPoint;
-import org.jboss.errai.ioc.client.container.SyncBeanManager;
-import org.kie.workbench.client.resources.i18n.AppConstants;
-import org.kie.workbench.common.services.security.KieWorkbenchACL;
-import org.kie.workbench.common.services.security.KieWorkbenchPolicy;
-import org.kie.workbench.common.services.shared.security.KieWorkbenchSecurityService;
-import org.kie.workbench.common.widgets.client.resources.RoundedCornersResource;
-import org.uberfire.client.UberFirePreferences;
-import org.uberfire.client.mvp.ActivityManager;
-import org.uberfire.client.mvp.PlaceManager;
-import org.uberfire.client.workbench.widgets.menu.WorkbenchMenuBarPresenter;
-import org.uberfire.mvp.Command;
-import org.uberfire.security.Identity;
-import org.uberfire.security.Role;
-import org.uberfire.workbench.model.menu.MenuFactory;
-import org.uberfire.workbench.model.menu.MenuItem;
 
 
 /**
@@ -64,15 +64,6 @@ public class KieWorkbenchEntryPoint {
     private PlaceManager placeManager;
 
     @Inject
-    private WorkbenchMenuBarPresenter menubar;
-
-    @Inject
-    private ActivityManager activityManager;
-
-    @Inject
-    private SyncBeanManager iocManager;
-
-    @Inject
     public Identity identity;
 
     @Inject
@@ -83,6 +74,9 @@ public class KieWorkbenchEntryPoint {
 
     @Inject
     private Caller<KieWorkbenchSecurityService> kieSecurityService;
+    
+    @Inject
+    private HomeProducer homeProducer;
 
     private SuggestBox actionText;
     private TextBox textSuggestBox;
@@ -98,6 +92,7 @@ public class KieWorkbenchEntryPoint {
                 loadPreferences();
                 loadStyles();
                 hideLoadingPopup();
+                homeProducer.init();
             }
         } ).loadPolicy();
     }
