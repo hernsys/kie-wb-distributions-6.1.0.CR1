@@ -18,8 +18,8 @@ import com.google.gwt.user.client.Timer;
  */
 @ApplicationScoped
 public class HomeProducer {
-
-    private static final int MLS = 2000;
+	//2000 is correct
+    private static final int MLS = 1500;
 
 	private AppConstants constants = AppConstants.INSTANCE;
 
