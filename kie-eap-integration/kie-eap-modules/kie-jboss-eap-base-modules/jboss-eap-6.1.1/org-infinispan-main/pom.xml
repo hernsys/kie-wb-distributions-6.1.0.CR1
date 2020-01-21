@@ -25,7 +25,7 @@
                 <dependency>
           <groupId>org.infinispan</groupId>
           <artifactId>infinispan-core</artifactId>
-          <version>5.2.7.Final-redhat-1</version>
+          <version>10.0.0.Final</version>
           <type>pom</type>
           <scope>system</scope>
           <systemPath>${project.basedir}/src/main/resources/infinispan-core-5.2.7.Final-redhat-1.jar-pom.xml</systemPath>
