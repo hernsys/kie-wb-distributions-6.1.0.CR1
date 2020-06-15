@@ -25,7 +25,7 @@
                 <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-validator</artifactId>
-          <version>4.3.1.Final-redhat-1</version>
+          <version>5.3.5.Final</version>
           <type>pom</type>
           <scope>system</scope>
           <systemPath>${project.basedir}/src/main/resources/hibernate-validator-4.3.1.Final-redhat-1.jar-pom.xml</systemPath>
