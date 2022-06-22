@@ -25,7 +25,7 @@
                 <dependency>
           <groupId>org.jboss</groupId>
           <artifactId>jboss-ejb-client</artifactId>
-          <version>1.0.23.Final-redhat-1</version>
+          <version>4.0.39.Final</version>
           <type>pom</type>
           <scope>system</scope>
           <systemPath>${project.basedir}/src/main/resources/jboss-ejb-client-1.0.23.Final-redhat-1.jar-pom.xml</systemPath>
