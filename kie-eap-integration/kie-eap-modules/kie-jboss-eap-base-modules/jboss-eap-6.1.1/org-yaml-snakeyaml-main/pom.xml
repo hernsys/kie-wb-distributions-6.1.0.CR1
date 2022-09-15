@@ -25,7 +25,7 @@
     <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
-      <version>1.8-redhat-2</version>
+      <version>1.31</version>
       <type>pom</type>
       <scope>system</scope>
       <systemPath>${project.basedir}/src/main/resources/snakeyaml-1.8-redhat-2.jar-pom.xml</systemPath>
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
-      <version>1.8</version>
+      <version>1.31</version>
       <type>jar</type>
     </dependency>
   </dependencies>
